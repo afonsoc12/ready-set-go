@@ -34,6 +34,7 @@
 
     - name: Set pyenv root fact
       command: pyenv root
+      changed_when: false
       register: pyenv_root
 
     - name: Set pyenv global {{ python_pyenv_global | join(' ') }}
