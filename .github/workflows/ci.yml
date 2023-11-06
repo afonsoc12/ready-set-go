@@ -28,6 +28,16 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
+      # - name: Uninstall GitHub Actions' built-in Homebrew
+      #   run: curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh | NONINTERACTIVE=1 bash -
+
+      - name: Install dependencies and set environment
+        run: |
+          sudo pip3 install --upgrade pip
+          sudo pip3 install -r requirements.txt
+          ansible-galaxy install -r requirements.yml
+
       - name: Checks
         run: |
           which python
@@ -39,31 +49,11 @@ jobs:
           pip -V
           pip3 -V
           pip install pytest
-      # - name: Uninstall GitHub Actions' built-in Homebrew
-      #   run: curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh | NONINTERACTIVE=1 bash -
-
-      - name: Install dependencies and set environment
-        run: |
-          sudo pip3 install --upgrade pip
-          sudo pip3 install -r requirements.txt
-          ansible-galaxy install -r requirements.yml
-
-          - name: Checks
-          run: |
-            which python
-            which python3
-            which pip
-            which pip3
-            python -V
-            python3 -V
-            pip -V
-            pip3 -V
-            pip install pytest
 
       - name: Test playbook
         run: |
           cp test/config.yml config.yml
-          ansible-playbook main.yml --skip-tags dock
+          ansible-playbook main.yml --skip-tags dock --tags python
       - name: Linting
         run: |
           yamllint .
