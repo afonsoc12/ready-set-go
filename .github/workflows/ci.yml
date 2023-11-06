@@ -31,7 +31,18 @@ jobs:
 
       # - name: Uninstall GitHub Actions' built-in Homebrew
       #   run: curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh | NONINTERACTIVE=1 bash -
-
+      - name: Checks before
+        run: |
+          which python
+          which python3
+          which pip
+          which pip3
+          python -V
+          python3 -V
+          pip -V
+          pip3 -V
+          pip install pytest
+          # ansible --version | grep "python version"
       - name: Install dependencies and set environment
         run: |
           sudo pip3 install --upgrade pip
@@ -49,6 +60,7 @@ jobs:
           pip -V
           pip3 -V
           pip install pytest
+          ansible --version | grep "python version"
 
       - name: Test playbook
         run: |
