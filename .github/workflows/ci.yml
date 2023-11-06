@@ -28,6 +28,16 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+      - name: Checks
+        run: |
+          which python
+          which python3
+          which pip
+          which pip3
+          python -V
+          python3 -V
+          pip -V
+          pip3 -V
 
       - name: Uninstall GitHub Actions' built-in Homebrew
         run: curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/uninstall.sh | NONINTERACTIVE=1 bash -
