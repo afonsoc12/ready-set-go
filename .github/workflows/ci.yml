@@ -53,7 +53,7 @@ jobs:
       - name: Test playbook
         run: |
           cp test/config.yml config.yml
-          ansible-playbook main.yml --skip-tags dock --tags python
+          ansible-playbook main.yml --skip-tags dock --tags dotfiles,python
       - name: Linting
         run: |
           yamllint .
